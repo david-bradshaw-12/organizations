@@ -1,0 +1,33 @@
+<h1>Hello <%= current_user.first_name %>
+<%= current_user.last_name %>!</h1>
+<h4>Here are groups that you can join!</h4>
+<h2><a href="<%= logout_path %>" data-method="delete"><button>Log out</button></a></h2>
+<div id="all_groups">
+	<h3>All groups!</h3>
+	<% @groups.reverse.each do |group| %>
+		<h4>
+		<% if group.user.id == current_user.id %>
+			<a href="/groups/<%= group.id %>" data-method="delete"><button>Delete Group</button></a>
+		<% end %>
+		<a href="/groups/<%= group.id %>"><%= group.name %></a></h4>
+		<small><%= group.description %></small>
+		<p>Member count:<%= group.members.count %></p>
+	<% end %>
+</div>
+<div id="add_group">
+	<ul>
+		<li><h3>Add a group here</h3></li>
+		<li id="red">
+			<% if flash[:alert] %>
+				<%= flash[:alert] %>
+			<% end %>
+		</li>
+		<form action="/groups" method="post">
+			<input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+
+			<li>Group name:<input type="text" name="group[name]"></li>
+			<li>Group description:<input type="text" name="group[description]"></li>
+			<button type="submit">Add group</button>
+		</form>
+	</ul>
+</div>

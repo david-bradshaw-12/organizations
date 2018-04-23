@@ -1,0 +1,28 @@
+<h1>view group</h1>
+<h2><a href="<%= all_groups_path %>"><button>View all Groups</button></a></h2>
+<p> Name: <%= @group.name %></p>
+<p> Description: <%= @group.description %></p>
+
+<% @group.members.each do |member| %>
+	<% if member.user.id == current_user.id %>
+		<% @toggle_join_button = false %>
+		<p><a href="/groups/<%= @group.id %>/leave" data-method="delete"><button>Leave group</button></a></p>
+	<% end %>
+<% end %>
+<% if @toggle_join_button %>
+	<p><a href="/groups/<%= @group.id %>/join" data-method="post"><button>Join group</button></a></p>
+<% end %>
+
+<p> Created by:
+<% if current_user.id == @creator.id %>
+	<%= @you %>
+<% else %>
+ <%= @creator.first_name %>
+	<%= @creator.last_name %>
+</p>
+<% end %>
+
+<h4>Members of this group:</h4>
+<% @group.members.each do |member| %>
+	<p><%= member.user.first_name %> <%= member.user.last_name %></p>
+<% end %>

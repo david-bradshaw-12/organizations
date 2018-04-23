@@ -1,0 +1,57 @@
+<h1>Join an organization today!</h1>
+<div id="register_form">
+	<ul>
+		<li><h2>Register</h2></li>
+		<li id="red"><% if flash[:alert] %>
+			<% flash[:alert].each do |error| %>
+				<%= error %>
+			<% end %>
+		<% end %></li>
+	<form action="<%= users_path %>" method="post">
+		<input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+		<li><label>First Name:</label>
+		<input type="text" name="user[first_name]"></li>
+
+		<li><label>Last Name:</label>
+		<input type="text" name="user[last_name]"></li>
+
+		<li><label>Email:</label>
+		<input type="email" name="user[email]"></li>
+
+		<li><label>Password:</label>
+		<input type="password" name="user[password]"></li>
+
+		<li><label>Password confirmation:</label>
+		<input type="password" name="user[password_confirmation]"></li>
+
+		<li><button type="submit">Register!</button></li>
+
+	</form>
+	</ul>
+</div>
+
+<div id="register_form">
+	<ul>
+		<li><h1>User login</h1></li>
+		<li id="red">
+			<% if flash[:alert] %>
+				<% flash[:alert].each do |error| %>
+					<%= error %>
+				<% end %>
+			<% end %>
+		</li>
+		<form action="<%= login_create_path %>" method="post">
+			<input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+			<li>Email:
+				<input type="email" name="email">
+			</li>
+			<li>Password:
+				<input type="password" name="password">
+			</li>
+			<li>
+				<input type="submit" value="Login">
+			</li>
+
+		</form>
+	</ul>
+</div>

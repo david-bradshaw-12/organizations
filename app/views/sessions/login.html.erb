@@ -1,0 +1,28 @@
+<h1>User login</h1>
+<h2><a href="<%= logout_path %>" data-method="delete"><button>Log out</button></a></h2>
+<div id="register_form">
+	<ul>
+		<li id="red">
+			<% if flash[:alert] %>
+				<% flash[:alert].each do |error| %>
+					<%= error %>
+				<% end %>
+			<% end %>
+		</li>
+		<form action="<%= login_create_path %>" method="post">
+			<input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+			<li>Email:
+				<input type="email" name="email">
+			</li>
+			<li>Password:
+				<input type="password" name="password">
+			</li>
+			<li>
+				<input type="submit" value="Login">
+			</li>
+
+		</form>
+	<li><p>Need to register?</p>
+	<a href="<%= new_user_path %>"><button>Register</button></a></li>
+	</ul>
+</div>
